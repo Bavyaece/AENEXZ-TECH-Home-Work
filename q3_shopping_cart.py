@@ -1,37 +1,10 @@
-# ---------------------------------------------------------------
-# PART A - Spot the Bug
-# ---------------------------------------------------------------
-# def add_item(item, cart=[]):
-#     cart.append(item)
-#     return cart
-#
-# Predicted output:
-# print(add_item("apple"))                  -> ["apple"]
-# print(add_item("banana"))                  -> ["apple", "banana"]
-# print(add_item("milk", cart=["bread"]))     -> ["bread", "milk"]
-# print(add_item("eggs"))                     -> ["apple", "banana", "eggs"]
-#
-# WHY: Default arguments in Python are evaluated ONLY ONCE, when the
-# function is defined - not every time it is called. So cart=[] creates
-# a single list object that is reused (and mutated) across every call
-# that doesn't explicitly pass its own cart. That's why "apple" and
-# "banana" both end up in the SAME list, while the call with
-# cart=["bread"] uses a separate, freshly passed list.
 
-
-# ---------------------------------------------------------------
-# PART B - Fix It
-# ---------------------------------------------------------------
 def add_item(item, cart=None):
     if cart is None:
         cart = []          # fresh empty list every call
     cart.append(item)
     return cart
 
-
-# ---------------------------------------------------------------
-# PART C - Build the Cart
-# ---------------------------------------------------------------
 def create_cart(owner, discount=0):
     # discount=0 is an int (immutable) -> safe as a default argument
     return {"owner": owner, "items": [], "discount": discount}
